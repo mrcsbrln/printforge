@@ -1,7 +1,7 @@
+import ModelsGrid from "@/components/ModelsGrid";
 import { getAllModels } from "../lib/models";
-import { Model } from "../types";
 
 export default async function ModelsPage() {
   const models = await getAllModels();
-  return models.map((model: Model) => <p key={model.id}>{model.name}</p>);
+  return <ModelsGrid title="3D Models" models={models} />;
 }

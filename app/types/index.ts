@@ -11,6 +11,15 @@ export type Model = {
   dateAdded: string;
 };
 
+export type Category = {
+  displayName: string;
+  slug: string;
+};
+
+export type CategoriesData = {
+  categories: Category[];
+};
+
 // Page Types
 export type ModelDetailPageProps = {
   params: Promise<{
@@ -18,9 +27,20 @@ export type ModelDetailPageProps = {
   }>;
 };
 
+export type CategoryPageProps = {
+  params: Promise<{
+    categoryName: string;
+  }>;
+};
+
 // Components Types
 export type ModelCardProps = {
   model: Model;
+};
+
+export type ModelsGridProps = {
+  title: string;
+  models: Model[];
 };
 
 export type PillProps = {
