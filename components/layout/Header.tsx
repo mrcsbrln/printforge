@@ -1,11 +1,16 @@
+"use client";
+
 import Image from "next/image";
-import NavLink from "./NavLink";
+import NavLink from "../NavLink";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function Header() {
+  const pathname = usePathname();
   return (
     <header className="w-full bg-white">
       <nav className="flex justify-between px-6 py-4">
-        <NavLink href="/">
+        <Link href="/">
           <div className="relative">
             {/* Desktop logo */}
             <Image
@@ -24,14 +29,17 @@ export default function Header() {
               className="w-10 h-auto block md:hidden"
             />
           </div>
-        </NavLink>
+        </Link>
         <ul className="flex items-center gap-2.5">
-          <li>
-            <NavLink href="/3d-models">3D Models</NavLink>
-          </li>
-          <li>
-            <NavLink href="/about">About</NavLink>
-          </li>
+          <NavLink
+            href="/3d-models"
+            isActive={pathname.startsWith("/3d-models")}
+          >
+            3D Models
+          </NavLink>
+          <NavLink href="/about" isActive={pathname === "/about"}>
+            About
+          </NavLink>
         </ul>
       </nav>
     </header>
