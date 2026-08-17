@@ -20,6 +20,10 @@ export type CategoriesData = {
   categories: Category[];
 };
 
+export type GetModelsParams = {
+  category?: string;
+};
+
 // Page Types
 export type ModelDetailPageProps = {
   params: Promise<{
@@ -30,6 +34,12 @@ export type ModelDetailPageProps = {
 export type CategoryPageProps = {
   params: Promise<{
     categoryName: string;
+  }>;
+};
+
+export type ModelsPageProps = {
+  searchParams: Promise<{
+    query?: string;
   }>;
 };
 
