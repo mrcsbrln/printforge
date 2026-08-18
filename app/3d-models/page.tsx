@@ -3,7 +3,7 @@ import type { ModelsPageProps } from "@/app/types";
 import { getModels } from "@/app/lib/models";
 import Form from "next/form";
 
-export default async function Page({ searchParams }: ModelsPageProps) {
+export default async function ModelsPage({ searchParams }: ModelsPageProps) {
   const models = await getModels();
   const query = (await searchParams)?.query?.toLowerCase() || "";
 
