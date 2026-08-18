@@ -1,5 +1,5 @@
-import categories from "../data/categories.json";
-import { Category } from "../types";
+import categories from "@/lib/data/categories.json";
+import { Category } from "@/app/types";
 
 export function getAllCategories(): Category[] {
   return categories;

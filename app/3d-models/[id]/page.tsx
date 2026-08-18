@@ -1,5 +1,5 @@
 import type { ModelDetailPageProps } from "@/app/types";
-import { getModelById } from "@/app/lib/models";
+import { getModelById } from "@/lib/models";
 import { FaRegHeart } from "react-icons/fa";
 import Pill from "@/components/Pill";
 import Image from "next/image";

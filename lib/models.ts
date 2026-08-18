@@ -1,5 +1,5 @@
-import modelsData from "../data/models.json";
-import type { GetModelsParams, Model } from "../types";
+import modelsData from "@/lib/data/models.json";
+import type { GetModelsParams, Model } from "@/app/types";
 
 export async function getModels({ category }: GetModelsParams = {}): Promise<
   Model[]

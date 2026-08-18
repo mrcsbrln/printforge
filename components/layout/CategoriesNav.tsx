@@ -2,7 +2,7 @@
 
 import { Category } from "@/app/types";
 import NavLink from "../NavLink";
-import { getAllCategories } from "@/app/lib/categories";
+import { getAllCategories } from "@/lib/categories";
 import { usePathname } from "next/navigation";
 
 export default function CategoriesNav() {

@@ -1,6 +1,6 @@
 import ModelsGrid from "@/components/ModelsGrid";
 import type { ModelsPageProps } from "@/app/types";
-import { getModels } from "@/app/lib/models";
+import { getModels } from "@/lib/models";
 import Form from "next/form";
 
 export default async function ModelsPage({ searchParams }: ModelsPageProps) {
