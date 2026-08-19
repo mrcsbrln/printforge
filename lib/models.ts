@@ -1,5 +1,5 @@
 import modelsData from "@/lib/data/models.json";
-import type { GetModelsParams, Model } from "@/app/types";
+import type { GetModelsParams, Model } from "@/lib/types";
 import { getDBConnection } from "@/lib/db";
 
 export function getModels() {

@@ -1,13 +1,24 @@
 import categories from "@/lib/data/categories.json";
-import { Category } from "@/app/types";
+import type { Category } from "@/lib/types";
+import { getDBConnection } from "@/lib/db";
 
-export function getAllCategories(): Category[] {
-  return categories;
+export function getCategories(): Category[] {
+  const db = getDBConnection();
+
+  try {
+    return db.prepare("SELECT * FROM categories").all();
+  } finally {
+    db.close();
+  }
 }
+
+// export function getAllCategories(): Category[] {
+//   return categories;
+// }
 
 export function getCategoryBySlug(slug: string): Category {
   const category = categories.find(
-    (c) => c.slug.toLowerCase() === slug.toLowerCase(),
+    (category) => category.slug.toLowerCase() === slug.toLowerCase(),
   );
   if (!category) {
     throw new Error(`Category with slug ${slug} not found`);
@@ -15,7 +26,7 @@ export function getCategoryBySlug(slug: string): Category {
   return category;
 }
 
-export function getDisplayNameFromSlug(slug: string): string {
+export function getNameFromSlug(slug: string): string {
   const category = getCategoryBySlug(slug);
-  return category.displayName;
+  return category.name;
 }

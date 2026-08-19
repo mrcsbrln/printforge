@@ -19,7 +19,7 @@ function seedCategories() {
     `);
 
   for (const category of categories) {
-    insertCategory.run(category.slug, category.displayName);
+    insertCategory.run(category.slug, category.name);
   }
 
   db.close();

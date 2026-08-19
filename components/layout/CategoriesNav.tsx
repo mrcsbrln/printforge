@@ -1,13 +1,13 @@
 "use client";
 
-import { Category } from "@/app/types";
+import type { Category } from "@/lib/types";
 import NavLink from "../NavLink";
-import { getAllCategories } from "@/lib/categories";
+import { getCategories } from "@/lib/categories";
 import { usePathname } from "next/navigation";
 
 export default function CategoriesNav() {
   const pathname = usePathname();
-  const categories: Category[] = getAllCategories();
+  const categories: Category[] = getCategories();
 
   return (
     <aside className="sticky top-0 z-10 w-full bg-white border-b border-gray-200 md:fixed md:w-64 md:top-1/2 md:-translate-y-1/2 md:border-none">
@@ -17,13 +17,13 @@ export default function CategoriesNav() {
             <NavLink href="/3d-models" isActive={pathname === "/3d-models"}>
               All
             </NavLink>
-            {categories.map((cat) => (
+            {categories.map((category) => (
               <NavLink
-                href={`/3d-models/categories/${cat.slug}`}
-                key={cat.slug}
-                isActive={pathname === `/3d-models/categories/${cat.slug}`}
+                href={`/3d-models/categories/${category.slug}`}
+                key={category.slug}
+                isActive={pathname === `/3d-models/categories/${category.slug}`}
               >
-                {cat.displayName}
+                {category.name}
               </NavLink>
             ))}
           </ul>

@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 
-// Data Types
 export type Model = {
   id: number;
   name: string;
@@ -12,7 +11,7 @@ export type Model = {
 };
 
 export type Category = {
-  displayName: string;
+  name: string;
   slug: string;
 };
 

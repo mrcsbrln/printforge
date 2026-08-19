@@ -1,10 +1,10 @@
 import ModelsGrid from "@/components/ModelsGrid";
-import type { ModelsPageProps } from "@/app/types";
+import type { ModelsPageProps } from "@/lib/types";
 import { getModels } from "@/lib/models";
 import Form from "next/form";
 
 export default async function ModelsPage({ searchParams }: ModelsPageProps) {
-  const models = await getModels();
+  const models = getModels();
   const query = (await searchParams)?.query?.toLowerCase() || "";
 
   const filteredModels = query
