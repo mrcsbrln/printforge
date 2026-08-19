@@ -6,7 +6,7 @@ export function getCategories(): Category[] {
   const db = getDBConnection();
 
   try {
-    return db.prepare("SELECT * FROM categories").all();
+    return db.prepare<[], Category>("SELECT * FROM categories").all();
   } finally {
     db.close();
   }

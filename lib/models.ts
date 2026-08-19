@@ -2,11 +2,11 @@ import modelsData from "@/lib/data/models.json";
 import type { GetModelsParams, Model } from "@/lib/types";
 import { getDBConnection } from "@/lib/db";
 
-export function getModels() {
+export function getModels(): Model[] {
   const db = getDBConnection();
 
   try {
-    return db.prepare("SELECT * FROM models").all();
+    return db.prepare<[], Model>("SELECT * FROM models").all();
   } finally {
     db.close();
   }

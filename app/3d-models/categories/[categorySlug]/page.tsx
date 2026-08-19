@@ -6,6 +6,7 @@ import ModelsGrid from "@/components/ModelsGrid";
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { categoryName } = await params;
   const category = getCategoryBySlug(categoryName);
-  const models = getModels({ category: categoryName });
-  return <ModelsGrid models={models} title={category.name} />;
+  const models = getModels();
+  // const models = getModels({ category: categoryName });
+  return <ModelsGrid models={models} title={""} />;
 }
