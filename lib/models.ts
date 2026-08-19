@@ -1,17 +1,28 @@
 import modelsData from "@/lib/data/models.json";
 import type { GetModelsParams, Model } from "@/app/types";
+import { getDBConnection } from "@/lib/db";
 
-export async function getModels({ category }: GetModelsParams = {}): Promise<
-  Model[]
-> {
-  let filteredModels = [...modelsData];
-  if (category) {
-    filteredModels = filteredModels.filter(
-      (model: Model) => model.category === category,
-    );
+export function getModels() {
+  const db = getDBConnection();
+
+  try {
+    return db.prepare("SELECT * FROM models").all();
+  } finally {
+    db.close();
   }
-  return filteredModels;
 }
+
+// export async function getModels({ category }: GetModelsParams = {}): Promise<
+//   Model[]
+// > {
+//   let filteredModels = [...modelsData];
+//   if (category) {
+//     filteredModels = filteredModels.filter(
+//       (model: Model) => model.category === category,
+//     );
+//   }
+//   return filteredModels;
+// }
 
 export async function getModelById(id: string | number): Promise<Model> {
   const foundModel = modelsData.find(

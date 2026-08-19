@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npx tsx lib/seeds/seed-models.ts && npx tsx lib/seeds/seed-categories.ts && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
