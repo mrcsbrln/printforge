@@ -3,19 +3,23 @@ import { getModelById } from "@/lib/models";
 import { FaRegHeart } from "react-icons/fa";
 import Pill from "@/components/Pill";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 export default async function ModelDetailPage({
   params,
 }: ModelDetailPageProps) {
   const { id } = await params;
-  const model = await getModelById(id);
+  const model = getModelById(id);
+  if (!model) {
+    notFound();
+  }
   return (
     <div className="container max-w-6xl px-4 py-8 mx-auto">
       <article className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Image Section */}
         <figure className="relative overflow-hidden rounded-lg shadow-lg aspect-square">
           <Image
-            src="/placeholder.png"
+            src={model.image}
             alt={`3D model of ${model.name}`}
             className="absolute inset-0 object-cover w-full h-full"
             width={300}

@@ -14,7 +14,7 @@ export default function Header() {
           <div className="relative">
             {/* Desktop logo */}
             <Image
-              src="/printforge-logo.svg"
+              src="/img/printforge-logo.svg"
               alt="PrintForge Logo"
               width={240}
               height={61}
@@ -22,7 +22,7 @@ export default function Header() {
             />
             {/* Mobile logo */}
             <Image
-              src="/printforge-logo-icon.svg"
+              src="/img/printforge-logo-icon.svg"
               alt="PrintForge Logo"
               width={39}
               height={39}

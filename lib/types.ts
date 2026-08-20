@@ -32,7 +32,7 @@ export type ModelDetailPageProps = {
 
 export type CategoryPageProps = {
   params: Promise<{
-    categoryName: string;
+    categorySlug: string;
   }>;
 };
 

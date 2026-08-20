@@ -17,7 +17,7 @@ export default function ModelCard({ model }: ModelCardProps) {
       >
         <div className="relative aspect-square">
           <img
-            src={placeholderImg.src}
+            src={model.image}
             alt={model.name}
             className="absolute inset-0 object-cover w-full h-full"
           />

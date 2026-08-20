@@ -25,7 +25,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <img src="/hero-image.png" width={350} />
+        <img src="/img/hero-image.png" width={350} />
       </section>
     </main>
   );

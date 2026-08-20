@@ -1,4 +1,3 @@
-import modelsData from "@/lib/data/models.json";
 import type { GetModelsParams, Model } from "@/lib/types";
 import { getDBConnection } from "@/lib/db";
 
@@ -24,12 +23,24 @@ export function getModels(): Model[] {
 //   return filteredModels;
 // }
 
-export async function getModelById(id: string | number): Promise<Model> {
-  const foundModel = modelsData.find(
-    (model: Model) => model.id.toString() === id.toString(),
-  );
-  if (!foundModel) {
-    throw new Error(`Model with id ${id} not found`);
+export function getModelsByCategorySlug(categorySlug: string): Model[] {
+  const db = getDBConnection();
+
+  try {
+    return db
+      .prepare<[string], Model>("SELECT * FROM models WHERE category=?")
+      .all(categorySlug);
+  } finally {
+    db.close();
   }
-  return foundModel;
+}
+
+export function getModelById(id: string) {
+  const db = getDBConnection();
+
+  try {
+    return db.prepare<string, Model>("SELECT * FROM models WHERE id=?").get(id);
+  } finally {
+    db.close();
+  }
 }

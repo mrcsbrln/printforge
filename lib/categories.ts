@@ -17,13 +17,20 @@ export function getCategories(): Category[] {
 // }
 
 export function getCategoryBySlug(slug: string): Category {
-  const category = categories.find(
-    (category) => category.slug.toLowerCase() === slug.toLowerCase(),
-  );
-  if (!category) {
-    throw new Error(`Category with slug ${slug} not found`);
+  const db = getDBConnection();
+
+  try {
+  } finally {
+    db.close();
   }
-  return category;
+
+  // const category = categories.find(
+  //   (category) => category.slug.toLowerCase() === slug.toLowerCase(),
+  // );
+  // if (!category) {
+  //   throw new Error(`Category with slug ${slug} not found`);
+  // }
+  // return category;
 }
 
 export function getNameFromSlug(slug: string): string {
