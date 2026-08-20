@@ -1,7 +1,10 @@
 import { NavLinkProps } from "@/lib/types";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-export default function NavLink({ href, isActive, children }: NavLinkProps) {
+export default function NavLink({ href, children, exact }: NavLinkProps) {
+  const pathname = usePathname();
+  const isActive = exact ? pathname === href : pathname.startsWith(href);
   return (
     <li className="text-sm uppercase">
       <Link
