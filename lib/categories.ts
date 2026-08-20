@@ -12,25 +12,20 @@ export function getCategories(): Category[] {
   }
 }
 
-// export function getAllCategories(): Category[] {
-//   return categories;
-// }
-
-export function getCategoryBySlug(slug: string): Category {
+export function getCategoryBySlug(categorySlug: string): Category {
   const db = getDBConnection();
 
   try {
+    const category = db
+      .prepare<string, Category>("SELECT * FROM categories WHERE slug=?")
+      .get(categorySlug);
+    if (!category) {
+      throw new Error(`Category with slug ${categorySlug} not found`);
+    }
+    return category;
   } finally {
     db.close();
   }
-
-  // const category = categories.find(
-  //   (category) => category.slug.toLowerCase() === slug.toLowerCase(),
-  // );
-  // if (!category) {
-  //   throw new Error(`Category with slug ${slug} not found`);
-  // }
-  // return category;
 }
 
 export function getNameFromSlug(slug: string): string {

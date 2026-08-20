@@ -1,4 +1,4 @@
-import type { GetModelsParams, Model } from "@/lib/types";
+import type { Model } from "@/lib/types";
 import { getDBConnection } from "@/lib/db";
 
 export function getModels(): Model[] {
@@ -10,18 +10,6 @@ export function getModels(): Model[] {
     db.close();
   }
 }
-
-// export async function getModels({ category }: GetModelsParams = {}): Promise<
-//   Model[]
-// > {
-//   let filteredModels = [...modelsData];
-//   if (category) {
-//     filteredModels = filteredModels.filter(
-//       (model: Model) => model.category === category,
-//     );
-//   }
-//   return filteredModels;
-// }
 
 export function getModelsByCategorySlug(categorySlug: string): Model[] {
   const db = getDBConnection();
