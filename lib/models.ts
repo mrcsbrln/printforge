@@ -1,7 +1,7 @@
 import type { Model } from "@/lib/types";
 import { getDBConnection } from "@/lib/db";
 
-export function getModels(query?: string): Model[] {
+export function getModels(query?: string, sort?: string): Model[] {
   const db = getDBConnection();
 
   let sql = "SELECT * FROM models";
@@ -9,11 +9,23 @@ export function getModels(query?: string): Model[] {
 
   if (query) {
     sql += " WHERE (name LIKE ? OR description LIKE ?)";
-    placeholders.push(`%${query}%, %${query}%`);
+    placeholders.push(`%${query}%`, `%${query}%`);
+  }
+
+  if (sort) {
+    if (sort === "alpha") {
+      sql += " ORDER BY name ASC";
+    }
+    if (sort === "popular") {
+      sql += " ORDER BY likes DESC";
+    }
+    if (sort === "recent") {
+      sql += " ORDER BY dateAdded DESC";
+    }
   }
 
   try {
-    return db.prepare<[], Model>("SELECT * FROM models").all();
+    return db.prepare<unknown[], Model>(sql).all(...placeholders);
   } finally {
     db.close();
   }

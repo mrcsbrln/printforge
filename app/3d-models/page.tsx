@@ -4,10 +4,11 @@ import { getModels } from "@/lib/models";
 export default async function ModelsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ query?: string }>;
+  searchParams: Promise<{ query?: string; sort?: string }>;
 }) {
-  const models = getModels();
-  const query = (await searchParams)?.query?.toLowerCase() || "";
+  const query = (await searchParams).query?.toLowerCase() || "";
+  const sort = (await searchParams).sort?.toLowerCase() || "";
+  const models = getModels(query, sort);
 
   const filteredModels = query
     ? models.filter(
