@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { ReactNode } from "react";
 
 export default function SortButton({
@@ -12,6 +12,9 @@ export default function SortButton({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const isActive = searchParams.get("sort") === sort;
 
   function handleSort() {
     const url = `${pathname}?sort=${sort}`;
@@ -20,9 +23,7 @@ export default function SortButton({
   return (
     <button
       onClick={handleSort}
-      className={
-        "px-3 py-1.5 text-sm rounded-full border cursor-pointer border-gray-300 text-gray-700 hover:bg-gray-100"
-      }
+      className={`px-3 py-1.5 text-sm rounded-full border cursor-pointer ${isActive ? "text-white bg-orange-400 border-orange-400" : "border-gray-300 text-gray-700 hover:bg-gray-100"}`}
     >
       {children}
     </button>
