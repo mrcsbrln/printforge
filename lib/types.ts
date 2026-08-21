@@ -36,20 +36,15 @@ export type CategoryPageProps = {
   }>;
 };
 
-export type ModelsPageProps = {
-  searchParams: Promise<{
-    query?: string;
-  }>;
-};
-
 // Components Types
 export type ModelCardProps = {
   model: Model;
 };
 
 export type ModelsGridProps = {
-  title: string;
   models: Model[];
+  categoryName?: string;
+  query?: string;
 };
 
 export type PillProps = {

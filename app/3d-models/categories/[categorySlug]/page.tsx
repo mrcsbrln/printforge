@@ -7,5 +7,5 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const { categorySlug } = await params;
   const models = getModelsByCategorySlug(categorySlug);
   const category = getCategoryBySlug(categorySlug);
-  return <ModelsGrid models={models} title={category.name} />;
+  return <ModelsGrid models={models} categoryName={category.name} />;
 }

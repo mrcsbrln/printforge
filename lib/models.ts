@@ -1,8 +1,16 @@
 import type { Model } from "@/lib/types";
 import { getDBConnection } from "@/lib/db";
 
-export function getModels(): Model[] {
+export function getModels(query?: string): Model[] {
   const db = getDBConnection();
+
+  let sql = "SELECT * FROM models";
+  const placeholders = [];
+
+  if (query) {
+    sql += " WHERE (name LIKE ? OR description LIKE ?)";
+    placeholders.push(`%${query}%, %${query}%`);
+  }
 
   try {
     return db.prepare<[], Model>("SELECT * FROM models").all();
