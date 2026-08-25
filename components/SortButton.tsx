@@ -17,7 +17,9 @@ export default function SortButton({
   const isActive = searchParams.get("sort") === sort;
 
   function handleSort() {
-    const url = `${pathname}?sort=${sort}`;
+    const urlSearchParams = new URLSearchParams(searchParams.toString());
+    urlSearchParams.set("sort", sort);
+    const url = `${pathname}?${urlSearchParams.toString()}`;
     router.push(url);
   }
   return (
