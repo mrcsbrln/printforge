@@ -34,6 +34,7 @@ export type CategoryPageProps = {
   params: Promise<{
     categorySlug: string;
   }>;
+  searchParams: Promise<{ sort: string }>;
 };
 
 // Components Types
