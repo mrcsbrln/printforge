@@ -8,7 +8,7 @@ export default async function ModelsPage({
 }) {
   const query = (await searchParams).query?.toLowerCase() || "";
   const sort = (await searchParams).sort?.toLowerCase() || "";
-  const models = getModels(query, sort);
+  const models = getModels({ query, sort });
 
   const filteredModels = query
     ? models.filter(
