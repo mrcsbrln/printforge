@@ -46,7 +46,6 @@ export function getModels({
 
 export function getModelById(id: string) {
   const db = getDBConnection();
-
   try {
     return db.prepare<string, Model>("SELECT * FROM models WHERE id=?").get(id);
   } finally {
