@@ -42,12 +42,6 @@ export type ModelCardProps = {
   model: Model;
 };
 
-export type ModelsGridProps = {
-  models: Model[];
-  categoryName?: string;
-  query?: string;
-};
-
 export type PillProps = {
   children: ReactNode;
   className?: string;
