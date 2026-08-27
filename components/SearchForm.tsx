@@ -1,8 +1,32 @@
-import Form from "next/form";
+"use client";
 
-export default function SearchForm({ query }: { query?: string }) {
+import Form from "next/form";
+import { usePathname, useRouter } from "next/navigation";
+import path from "path";
+import { TransitionStartFunction } from "react";
+
+export default function SearchForm({
+  query,
+  startTransition,
+}: {
+  query?: string;
+  startTransition: TransitionStartFunction;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  function handleQuery(formData: FormData) {
+    const query = formData.get("query")?.toString().trim() || "";
+    const url = query
+      ? `${pathname}?query=${encodeURIComponent(query)}`
+      : pathname;
+    startTransition(() => {
+      router.push(url);
+    });
+  }
+
   return (
-    <Form action="/3d-models" className="w-full px-5 md:px-0 md:max-w-xl">
+    <Form action={handleQuery} className="w-full px-5 md:px-0 md:max-w-xl">
       <input
         type="text"
         defaultValue={query}

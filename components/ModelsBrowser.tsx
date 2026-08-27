@@ -18,7 +18,7 @@ export default function ModelsBrowser({
 
   return (
     <>
-      <SearchForm query={query} />
+      <SearchForm query={query} startTransition={startTransition} />
       <ModelsGrid
         isPending={isPending}
         query={query}
