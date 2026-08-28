@@ -15,14 +15,18 @@ export function getModels({
   let sql = "SELECT * FROM models";
   const placeholders = [];
 
-  if (query) {
-    sql += " WHERE (name LIKE ? OR description LIKE ?)";
-    placeholders.push(`%${query}%`, `%${query}%`);
-  }
+  if (query || categorySlug) {
+    const where = [];
+    if (query) {
+      where.push("(name LIKE ? OR description LIKE ?)");
+      placeholders.push(`%${query}%`, `%${query}%`);
+    }
+    if (categorySlug) {
+      where.push("category=?");
+      placeholders.push(categorySlug);
+    }
 
-  if (categorySlug) {
-    sql += " WHERE category=?";
-    placeholders.push(categorySlug);
+    sql += " WHERE " + where.join(" AND ");
   }
 
   if (sort) {

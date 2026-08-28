@@ -30,13 +30,6 @@ export type ModelDetailPageProps = {
   }>;
 };
 
-export type CategoryPageProps = {
-  params: Promise<{
-    categorySlug: string;
-  }>;
-  searchParams: Promise<{ sort: string }>;
-};
-
 // Components Types
 export type ModelCardProps = {
   model: Model;
