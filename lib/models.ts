@@ -5,10 +5,14 @@ export function getModels({
   query,
   sort,
   categorySlug,
+  page,
+  modelsPerPage,
 }: {
   query?: string;
   sort?: string;
   categorySlug?: string;
+  page: number;
+  modelsPerPage: number;
 }): Model[] {
   const db = getDBConnection();
 

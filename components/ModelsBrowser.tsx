@@ -4,6 +4,7 @@ import { Model } from "@/lib/types";
 import ModelsGrid from "./ModelsGrid";
 import SearchForm from "./SearchForm";
 import { useTransition } from "react";
+import PaginationControls from "./PaginationControls";
 
 export default function ModelsBrowser({
   query,
@@ -18,6 +19,7 @@ export default function ModelsBrowser({
 
   return (
     <>
+      <PaginationControls />
       <SearchForm query={query} startTransition={startTransition} />
       <ModelsGrid
         isPending={isPending}
