@@ -2,6 +2,7 @@ import type { CategoryPageProps } from "@/lib/types";
 import { getCategoryBySlug } from "@/lib/categories";
 import { getModels } from "@/lib/models";
 import ModelsBrowser from "@/components/ModelsBrowser";
+import { notFound } from "next/navigation";
 
 export default async function CategoryPage({
   params,
@@ -12,7 +13,13 @@ export default async function CategoryPage({
 
   const { categorySlug } = await params;
   const sort = (await searchParams)?.sort?.toLowerCase() || "";
-  const models = getModels({ sort, categorySlug });
   const category = getCategoryBySlug(categorySlug);
+
+  if (!category) {
+    notFound();
+  }
+
+  const models = getModels({ sort, categorySlug });
+
   return <ModelsBrowser models={models} categoryName={category.name} />;
 }

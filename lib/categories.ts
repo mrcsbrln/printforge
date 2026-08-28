@@ -1,6 +1,7 @@
 import categories from "@/lib/data/categories.json";
 import type { Category } from "@/lib/types";
 import { getDBConnection } from "@/lib/db";
+import { notFound } from "next/navigation";
 
 export function getCategories(): Category[] {
   const db = getDBConnection();
@@ -20,7 +21,7 @@ export function getCategoryBySlug(categorySlug: string): Category {
       .prepare<string, Category>("SELECT * FROM categories WHERE slug=?")
       .get(categorySlug);
     if (!category) {
-      throw new Error(`Category with slug ${categorySlug} not found`);
+      notFound();
     }
     return category;
   } finally {
