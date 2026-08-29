@@ -1,5 +1,5 @@
 import ModelsBrowser from "@/components/ModelsBrowser";
-import { getModels } from "@/lib/models";
+import { getModelCount, getModels } from "@/lib/models";
 
 export default async function ModelsPage({
   searchParams,
@@ -13,8 +13,12 @@ export default async function ModelsPage({
   const sort = (await searchParams).sort?.toLowerCase() || "";
   const page = Number((await searchParams).page) || 1;
   const modelsPerPage = 4;
+  const modelCount = getModelCount({ query });
+  const totalPages = Math.ceil(modelCount / modelsPerPage);
 
   const models = getModels({ query, sort, page, modelsPerPage });
 
-  return <ModelsBrowser query={query} models={models} />;
+  return (
+    <ModelsBrowser query={query} models={models} totalPages={totalPages} />
+  );
 }

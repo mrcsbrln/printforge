@@ -45,6 +45,12 @@ export function getModels({
     }
   }
 
+  if (page && modelsPerPage) {
+    const offset = (page - 1) * modelsPerPage;
+    sql += " LIMIT ? OFFSET ?";
+    placeholders.push(modelsPerPage, offset);
+  }
+
   try {
     return db.prepare<unknown[], Model>(sql).all(...placeholders);
   } finally {
@@ -56,6 +62,27 @@ export function getModelById(id: string) {
   const db = getDBConnection();
   try {
     return db.prepare<string, Model>("SELECT * FROM models WHERE id=?").get(id);
+  } finally {
+    db.close();
+  }
+}
+
+export function getModelCount({ query }: { query?: string }): number {
+  const db = getDBConnection();
+  let sql = "SELECT COUNT(*) as count FROM models";
+  const placeholders = [];
+
+  if (query) {
+    sql += " WHERE name LIKE ? OR description LIKE ?";
+    placeholders.push(`%${query}%`, `%%${query}`);
+  }
+
+  try {
+    const result = db
+      .prepare<unknown[], { count: number }>(sql)
+      .get(...placeholders);
+    if (!result) return 0;
+    return result.count;
   } finally {
     db.close();
   }
