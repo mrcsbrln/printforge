@@ -1,7 +1,13 @@
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { startTransition } from "react";
 
-export default function PaginationButton({ page }: { page: number }) {
+export default function PaginationButton({
+  page,
+  isActive,
+}: {
+  page: number;
+  isActive: boolean;
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -17,7 +23,7 @@ export default function PaginationButton({ page }: { page: number }) {
   return (
     <button
       onClick={handlePageChange}
-      className="px-3 py-1.5 text-sm rounded-md border cursor-pointer border-gray-300 text-gray-700 hover:bg-gray-100"
+      className={`px-3 py-1.5 text-sm rounded-md border cursor-pointer ${isActive ? "text-white bg-orange-400 border-orange-300" : "border-gray-300 text-gray-700 hover:bg-gray-100"} `}
     >
       {page}
     </button>

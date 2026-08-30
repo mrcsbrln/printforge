@@ -19,6 +19,11 @@ export default async function ModelsPage({
   const models = getModels({ query, sort, page, modelsPerPage });
 
   return (
-    <ModelsBrowser query={query} models={models} totalPages={totalPages} />
+    <ModelsBrowser
+      query={query}
+      models={models}
+      totalPages={totalPages}
+      currentPage={page}
+    />
   );
 }

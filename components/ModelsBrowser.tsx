@@ -12,17 +12,18 @@ export default function ModelsBrowser({
   models,
   categoryName,
   totalPages,
+  currentPage,
 }: {
   query?: string;
   models: Model[];
   categoryName?: string;
   totalPages: number;
+  currentPage: number;
 }) {
   const [isPending, startTransition] = useTransition();
 
   return (
     <>
-      <PaginationControls totalPages={totalPages} />
       <SearchForm query={query} startTransition={startTransition} />
       <ModelsGrid
         isPending={isPending}
@@ -31,6 +32,7 @@ export default function ModelsBrowser({
         categoryName={categoryName}
         startTransition={startTransition}
       />
+      <PaginationControls totalPages={totalPages} currentPage={currentPage} />
     </>
   );
 }
