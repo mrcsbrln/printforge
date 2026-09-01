@@ -67,14 +67,29 @@ export function getModelById(id: string) {
   }
 }
 
-export function getModelCount({ query }: { query?: string }): number {
+export function getModelCount({
+  query,
+  categorySlug,
+}: {
+  query?: string;
+  categorySlug?: string;
+}): number {
   const db = getDBConnection();
   let sql = "SELECT COUNT(*) as count FROM models";
   const placeholders = [];
 
-  if (query) {
-    sql += " WHERE name LIKE ? OR description LIKE ?";
-    placeholders.push(`%${query}%`, `%%${query}`);
+  if (query || categorySlug) {
+    const where = [];
+    if (query) {
+      where.push("(name LIKE ? OR description LIKE ?)");
+      placeholders.push(`%${query}%`, `%${query}%`);
+    }
+    if (categorySlug) {
+      where.push("category=?");
+      placeholders.push(categorySlug);
+    }
+
+    sql += " WHERE " + where.join(" AND ");
   }
 
   try {
