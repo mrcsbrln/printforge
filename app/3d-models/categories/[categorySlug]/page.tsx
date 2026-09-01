@@ -1,7 +1,7 @@
 import { getCategoryBySlug } from "@/lib/categories";
 import { getModelCount, getModels } from "@/lib/models";
 import ModelsBrowser from "@/components/ModelsBrowser";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { MODELS_PER_PAGE } from "@/lib/constants";
 import { getQueryParams } from "@/lib/utils";
 
@@ -10,18 +10,24 @@ export default async function CategoryPage({
   searchParams,
 }: {
   params: Promise<{ categorySlug: string }>;
-  searchParams: Promise<{ sort: string; query: string; page: string }>;
+  searchParams: Promise<{ sort?: string; query?: string; page?: string }>;
 }) {
   // TEMP-DELAY: simulate slow network, remove before merge
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const { query, sort, page } = getQueryParams(await searchParams);
-
   const { categorySlug } = await params;
   const category = getCategoryBySlug(categorySlug);
 
   if (!category) {
     notFound();
+  }
+
+  const modelsCount = getModelCount({ query, categorySlug });
+  const totalPages = Math.ceil(modelsCount / MODELS_PER_PAGE);
+
+  if (page < 1 || page > totalPages || sort === null) {
+    redirect(`/3d-models/categories/${categorySlug}`);
   }
 
   const models = getModels({
@@ -31,9 +37,7 @@ export default async function CategoryPage({
     page,
     modelsPerPage: MODELS_PER_PAGE,
   });
-  const modelsCount = getModelCount({ query, categorySlug });
 
-  const totalPages = Math.ceil(modelsCount / MODELS_PER_PAGE);
   return (
     <ModelsBrowser
       models={models}

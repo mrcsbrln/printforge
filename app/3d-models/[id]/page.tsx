@@ -9,7 +9,8 @@ export default async function ModelDetailPage({
   params,
 }: ModelDetailPageProps) {
   // TEMP-DELAY: simulate slow network, remove before merge
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const { id } = await params;
   const model = getModelById(id);
   if (!model) {

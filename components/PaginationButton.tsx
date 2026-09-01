@@ -4,9 +4,11 @@ import { startTransition } from "react";
 export default function PaginationButton({
   page,
   isActive,
+  label,
 }: {
   page: number;
   isActive: boolean;
+  label?: string;
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -25,7 +27,7 @@ export default function PaginationButton({
       onClick={handlePageChange}
       className={`px-3 py-1.5 text-sm rounded-md border cursor-pointer ${isActive ? "text-white bg-orange-400 border-orange-300" : "border-gray-300 text-gray-700 hover:bg-gray-100"} `}
     >
-      {page}
+      {label || page}
     </button>
   );
 }

@@ -25,6 +25,9 @@ export default function ModelsGrid({
   if (query) {
     title = `Search results for "${query}"`;
   }
+  if (categoryName && query) {
+    title = `Search results for "${query}" in "${categoryName}"`;
+  }
   return (
     <div className="container px-4 py-8 mx-auto">
       <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-8">
