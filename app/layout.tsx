@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Albert_Sans, Montserrat_Alternates } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 const albertSans = Albert_Sans({
   subsets: ["latin"],
@@ -28,7 +29,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <Header />
-        {children}
+        <div className="flex-1">{children}</div>
+        <Footer />
       </body>
     </html>
   );
