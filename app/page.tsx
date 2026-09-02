@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 
 export default function Home() {
@@ -17,15 +18,21 @@ export default function Home() {
           </p>
 
           <div className="flex gap-4">
-            <button
+            <Link
               href="/3d-models"
               className="px-6 py-3 text-black transition duration-100 bg-white border-2 border-black hover:bg-black hover:text-white"
             >
               Browse Models
-            </button>
+            </Link>
           </div>
         </div>
-        <img src="/img/hero-image.png" width={350} />
+        <Image
+          width={1206}
+          height={1201}
+          src="/img/hero-image.png"
+          className="w-87.5 h-auto rounded-lg"
+          alt="Hero Image"
+        />
       </section>
     </main>
   );
