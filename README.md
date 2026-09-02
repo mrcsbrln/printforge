@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PrintForge
+
+PrintForge is a browsing platform for community-submitted 3D printing models — search, sort, filter by category, and view model details. Built as a portfolio project with the Next.js App Router.
+
+## Features
+
+- Browse a catalog of 3D printable models with cover images, likes, and category tags
+- Full-text search across model name and description
+- Sort by alphabetical order, popularity, or most recently added
+- Filter models by category via a sticky category navigation
+- Paginated results
+- Individual model detail pages
+
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack, Server Components)
+- [React 19](https://react.dev)
+- TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [better-sqlite3](https://github.com/WiseLibs/better-sqlite3) as the data layer
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js (LTS recommended)
+- npm
+
+### Install & run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run dev` seeds the local SQLite database from the JSON fixtures in `lib/data/` before starting the dev server, so the app has data on first run.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000) to view it.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Production build
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/                       Routes (App Router)
+  page.tsx                 Landing page
+  about/                   About page
+  3d-models/               Model catalog, detail, and category routes
+components/                UI components (models grid, search, sort, pagination, layout)
+lib/
+  models.ts, categories.ts Data access (SQLite queries)
+  db.ts                    Database connection
+  seeds/                   Scripts that seed the SQLite DB from lib/data/*.json
+  data/                    Seed fixtures (models & categories)
+  types.ts, utils.ts, constants.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Data
 
-## Deploy on Vercel
+Model and category data lives in a local SQLite file (`printforge.db`), seeded from `lib/data/models.json` and `lib/data/categories.json` via the scripts in `lib/seeds/`. All read paths (`lib/models.ts`, `lib/categories.ts`) open the database read-only; only the seed scripts write to it.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployed on [Vercel](https://vercel.com). Since the app ships with a bundled SQLite file rather than a hosted database, the connection in `lib/db.ts` is opened in readonly mode for all runtime reads — Vercel's serverless functions run on a read-only filesystem, so no writes happen outside of local seeding.
